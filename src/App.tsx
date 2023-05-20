@@ -1,7 +1,8 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
+import { SingleMovie } from './components';
 import {HeaderPage, LayoutPage, MoviesPage} from './page';
-import {SingleMovie} from './components';
+
 
 
 const App = () => {
@@ -9,11 +10,11 @@ const App = () => {
         <div>
             <HeaderPage/>
             <Routes>
-                {/*<Route path={'/'} element={<LayoutPage/>}>*/}
+                <Route path={'/'} element={<LayoutPage/>}>
                     <Route path={'/'} element={<MoviesPage/>}>
                         <Route path={'/:id'} element={<SingleMovie/>}>
                         </Route>
-                    {/*</Route>*/}
+                    </Route>
                 </Route>
             </Routes>
         </div>

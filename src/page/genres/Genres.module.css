@@ -1,0 +1,21 @@
+.genresbody {
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+    row-gap: 10px;
+}
+
+.genres {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+}
+
+.dropyear {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 10px;
+}

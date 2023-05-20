@@ -3,6 +3,6 @@ import {urls} from "../constants";
 
 export const genreService = {
 
-    getGenres: () => axiosService.get(`${urls.genre}${urls.apiKey}`).then(value => value.data),
+    getGenres: () => axiosService.get(`${urls.genre}${urls.apiKey}`)
 
 }

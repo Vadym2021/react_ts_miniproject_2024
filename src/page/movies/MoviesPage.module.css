@@ -1,0 +1,32 @@
+.movies {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    row-gap: 20px;
+}
+
+.pagenav {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.paginator {
+    display: flex;
+    column-gap: 10px;
+}
+
+.droppage {
+    display: flex;
+    column-gap: 10px;
+}
+
+.droppageform {
+    display: flex;
+    column-gap: 10px;
+}

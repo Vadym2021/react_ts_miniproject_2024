@@ -1,8 +1,8 @@
-import {IMovie} from "./movie.interface";
 
-export interface IPage {
+
+export interface IPage<T> {
     page: number;
-    results?: IMovie[];
-    total_pages?: number;
-    total_results?: number;
+    results: T[];
+    total_pages: number;
+    total_results: number;
 }

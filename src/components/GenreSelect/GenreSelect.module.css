@@ -1,0 +1,9 @@
+.genre {
+    display: flex;
+    justify-content: space-between;
+    row-gap: 20px;
+    column-gap: 20px;
+    padding: 3px;
+    margin-left: 20px;
+
+}
