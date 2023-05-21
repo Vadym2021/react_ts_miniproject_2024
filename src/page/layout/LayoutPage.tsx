@@ -1,7 +1,7 @@
 import React from 'react';
 import {Outlet} from "react-router-dom";
-import { GenresPage } from '../genres/GenresPage';
 
+import { GenresPage } from '../genres/GenresPage';
 import css from "./Layout.module.css"
 
 const LayoutPage = () => {

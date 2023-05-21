@@ -1,6 +1,5 @@
 const baseURL = `https://api.themoviedb.org/3`
 
-
 export default baseURL
 
 export const urls = {
@@ -13,6 +12,7 @@ export const urls = {
     discover: '/discover/movie',
     page: '&page=',
     withgenres: '&with_genres=',
-    year: '&primary_release_year='
-
+    year: '&primary_release_year=',
+    search: '/search',
+    query: 'movie?query=',
 }

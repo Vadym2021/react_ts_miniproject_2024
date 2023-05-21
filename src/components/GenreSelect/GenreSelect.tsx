@@ -1,10 +1,9 @@
 import React, {FC} from 'react';
-import css from "../GenreSelect/GenreSelect.module.css";
-import {IGenre} from "../../interfaces";
 import {useDispatch} from "react-redux";
 
+import css from "../GenreSelect/GenreSelect.module.css";
 import {checkBoxChange} from "../../redux";
-
+import {IGenre} from "../../interfaces";
 
 interface IProps {
     genre: IGenre

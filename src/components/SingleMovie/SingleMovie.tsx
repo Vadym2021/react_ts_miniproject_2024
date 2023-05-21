@@ -1,56 +1,67 @@
 import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {movieActions} from "../../redux";
-import {useAppSelector} from "../../hooks";
-import {ISingleMovie} from "../../interfaces/singlemovie.interface";
 
+import {movieActions, RootState} from "../../redux";
+import {ISingleMovie} from "../../interfaces/singlemovie.interface";
 import css from './SingleMovie.module.css'
 
 
-
 const SingleMovie = () => {
-
-    const {SingleMovie} = useAppSelector(state => state.movieReducer);
-    console.log(SingleMovie)
-
-
-
 
 
     const {id} = useParams();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // @ts-ignore
-        dispatch(movieActions.getMovieById({id}));
-            console.log(id);
 
-    }, [dispatch,id]);
+        dispatch(movieActions.getMovieById({ id: parseInt(id!) }) as any);
 
+        window.scrollTo(0, 0);
+    }, [dispatch, id]);
+
+    const {SingleMovie}: { SingleMovie: ISingleMovie | null } = useSelector((state: RootState) => state.movieReducer);
+    if (!SingleMovie) {
+        return null;
+    }
+    const {title,genres,poster_path,backdrop_path}: ISingleMovie = SingleMovie;
 
 
     return (
         <div>
-            {/*<div className={css.singlemovie}>*/}
-            {/*    <div>{SingleMovie.title}</div>*/}
-            {/*    <div>{SingleMovie.tagline}</div>*/}
-            {/*    <div className={css.img}><img className={css.img}*/}
-            {/*                                  src={'https://image.tmdb.org/t/p/original' + `${movie.backdrop_path}`}*/}
-            {/*                                  alt=""/></div>*/}
-            {/*    <div>Story : {movie.overview}</div>*/}
-            {/*    <div>Жанр:</div>*/}
+            <div className={css.singlemovie}>
+                <div>{SingleMovie.title}</div>
+                <div>{SingleMovie.tagline}</div>
+                <div className={css.img}>
+                    {backdrop_path ? (
+                        <img
+                            className={css.img}
+                            // src="../../images/logo2.jpg"
+                            src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
+                            alt={title}
+                        />
+                    ) : (
+                        <img
+                            className={css.img}
+                            src={`https://image.tmdb.org/t/p/original${poster_path}`}
+                            alt="no poster"
+                        />
+                    )}
+                </div>
+                <div>Story : {SingleMovie.overview}</div>
 
-            {/*    <div>*/}
-            {/*        {*/}
-            {/*            smgenres.map(genreid => <img src={`${genreid.id}` + '.jpg'} alt=""/>)*/}
-            {/*        }*/}
-            {/*    </div>*/}
-            {/*    <div>Дата выхода : {movie.release_date}</div>*/}
-            {/*    <div>Рейтинг : {movie.vote_average}</div>*/}
-            {/*    <div>Сайт : {movie.homepage}</div>*/}
+                <div>Жанр:</div>
 
-            {/*</div>*/}
+                <div>
+                    {genres.map((genre) => (
+                        <img key={genre.id} src={`/genresimages/${genre.id}.jpg`} alt="" />
+                    ))}
+                </div>
+                <div>Дата выхода : {SingleMovie.release_date}</div>
+                <div>Рейтинг : {SingleMovie.vote_average}</div>
+                <div>Сайт : {SingleMovie.homepage}</div>
+
+            </div>
 
         </div>
     );

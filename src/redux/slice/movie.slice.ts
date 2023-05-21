@@ -8,7 +8,7 @@ import {ISingleMovie} from "../../interfaces/singlemovie.interface";
 
 interface IState {
     movies: IMovie[],
-    SingleMovie: ISingleMovie[],
+    SingleMovie: ISingleMovie | null,
     page: number,
     total_pages: number,
     total_results: number,
@@ -19,7 +19,7 @@ interface IState {
 
 const initialState: IState = {
     movies: [],
-    SingleMovie:[],
+    SingleMovie: null,
     page: 1,
     total_pages: 0,
     total_results: 0,
@@ -46,7 +46,6 @@ const getMovieById = createAsyncThunk<ISingleMovie, { id: number }>(
         try {
             const {data} = await movieService.getMovieImById(id);
             return data;
-            console.log(data)
         } catch (e) {
             const err = e as AxiosError;
             return rejectWithValue(err.message);
@@ -60,11 +59,9 @@ const slice = createSlice({
     reducers: {
         setPage: (state, action: PayloadAction<number>) => {
             state.page = action.payload;
-            console.log(state.page)
         },
         setId: (state, action: PayloadAction<number>) => {
             state.id = action.payload;
-            console.log(state.id)
         }
     },
     extraReducers: builder =>
@@ -75,19 +72,10 @@ const slice = createSlice({
                 state.total_pages = total_pages
                 state.total_results = total_results
                 state.movies = results
-                console.log(action.payload)
             })
             .addCase(getMovieById.fulfilled, (state, action) => {
-                // @ts-ignore
                 state.SingleMovie = action.payload;
-                console.log(state.SingleMovie)
             })
-
-
-                // state.singleMovie = movie
-
-
-
 })
 
 

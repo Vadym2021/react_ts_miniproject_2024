@@ -1,9 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
-
-
+import {useAppDispatch, useAppSelector} from "../../hooks";
 
 import css from './Genres.module.css'
-import {useAppDispatch, useAppSelector} from "../../hooks";
 import {genreActions, movieActions} from "../../redux";
 import {GenreSelect} from '../../components';
 

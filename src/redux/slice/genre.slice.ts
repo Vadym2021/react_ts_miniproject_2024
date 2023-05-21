@@ -1,17 +1,15 @@
-import {IGenre} from "../../interfaces";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {genreService} from "../../services";
 import {AxiosError} from "axios";
+
+import {genreService} from "../../services";
 import {IGenres} from "../../interfaces/genres.interface";
 import {RootState} from "../store";
-
+import {IGenre} from "../../interfaces";
 
 interface IState {
     genre: IGenre[],
     checkbox: IGenre[],
     genretrue: number[],
-
-
 }
 
 const initialState: IState = {
@@ -19,7 +17,7 @@ const initialState: IState = {
     checkbox: [],
     genretrue: [],
 
-};
+}
 
 const getGenres = createAsyncThunk<IGenres, void>(
     'genreSlice/getGenres',
@@ -49,13 +47,12 @@ const slice = createSlice({
                 return genre;
             });
             state.genre = genresWithStatus;
-            console.log(state.genre)
+
 
             const genreIdsWithStatusTrue = state.genre
                 .filter((genre) => genre.status === true)
                 .map((genre) => genre.id);
             state.genretrue = genreIdsWithStatusTrue as [];
-            console.log(state.genretrue);
         }
     },
     extraReducers: builder =>
@@ -69,9 +66,6 @@ const slice = createSlice({
                     status: false,
                 }));
                 state.genre = genresWithStatus;
-                // state.genre=genres
-
-                console.log(genresWithStatus)
             })
 })
 

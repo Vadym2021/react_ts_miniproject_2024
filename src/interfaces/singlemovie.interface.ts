@@ -3,7 +3,7 @@ export interface ISingleMovie{
     backdrop_path:string;
     belongs_to_collection:string;
     budget:number;
-    genres:[];
+    genres: { id: number }[];
     homepage:string;
     id:number;
     imdb_id:string;

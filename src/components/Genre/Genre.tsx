@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 
-
 import css from "./Genre.module.css"
 
 interface IProps {
@@ -9,11 +8,10 @@ interface IProps {
 
 const Genre: FC<IProps> = ({genre}) => {
 
-
     return (
         <div>
             <div className={css.genreid}>
-                <img className={css.genreimg} src={`${genre}` + '.jpg'} alt=""/>
+                <img className={css.genreimg} src={`/genresimages/${genre}.jpg`} alt=""/>
             </div>
         </div>
     );

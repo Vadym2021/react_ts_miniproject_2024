@@ -1,9 +1,9 @@
 import React, {FC, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import {movieActions} from "../../redux";
-import {Movie} from '../../components/Movie/Movie';
-import {useForm} from 'react-hook-form';
 
+import {movieActions} from "../../redux";
+import {Movie} from '../../components';
+import {useForm} from 'react-hook-form';
 
 
 import css from "./MoviesPage.module.css";
@@ -17,23 +17,21 @@ const MoviesPage: FC = () => {
     const genretrue = useAppSelector(state => state.genreReducer.genretrue);
 
 
-
-
     const {register, handleSubmit,} = useForm();
 
 
     useEffect(() => {
         dispatch(movieActions.getMovies({year: 2023, genretrue: genretrue, page}))
-    }, [dispatch,page])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch, page])
 
     const onSubmit = (droppage: any) => {
         const page = [];
         for (let index in droppage) {
             page.push(droppage[index])
-            console.log(page)
         }
-        // @ts-ignore
-        dispatch(movieActions.setPage(page));
+
+        dispatch(movieActions.setPage(page[0]));
     };
 
 

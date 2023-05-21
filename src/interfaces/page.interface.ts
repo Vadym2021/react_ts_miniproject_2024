@@ -1,5 +1,3 @@
-
-
 export interface IPage<T> {
     page: number;
     results: T[];
