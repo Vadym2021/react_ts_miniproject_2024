@@ -44,7 +44,7 @@ const SingleMovie = () => {
                         <img
                             className={css.img}
                             src={`https://image.tmdb.org/t/p/original${poster_path}`}
-                            alt="no poster"
+                            alt={title}
                         />
                     )}
                 </div>

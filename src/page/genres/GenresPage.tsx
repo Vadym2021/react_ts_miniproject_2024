@@ -10,7 +10,7 @@ const GenresPage: FC = () => {
 
     const {genre} = useAppSelector(state => state.genreReducer);
     const dispatch = useAppDispatch();
-    const [localyearform, setLocalyearform] = useState<{ dropyear: number }>({dropyear: 2023});
+    const [localyearform, setLocalyearform] = useState<{ dropyear: number | undefined }>({dropyear: undefined});
     const genretrue = useAppSelector(state => state.genreReducer.genretrue);
 
 
@@ -20,7 +20,7 @@ const GenresPage: FC = () => {
 
     const formHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const dropyear: number = parseInt(e.target.value);
-        setLocalyearform({dropyear});
+        setLocalyearform({ dropyear: isNaN(dropyear) ? undefined : dropyear });
         console.log(localyearform)
     };
 
@@ -33,7 +33,7 @@ const GenresPage: FC = () => {
                     <input
                         type="text"
                         name="dropyear"
-                        value={isNaN(localyearform.dropyear) ? '' : localyearform.dropyear}
+                        value={localyearform.dropyear === undefined ? '' : localyearform.dropyear}
                         onChange={formHandler}
                         placeholder="год выпуска"
                     />
@@ -47,7 +47,7 @@ const GenresPage: FC = () => {
                 <button onClick={() => dispatch(movieActions.getMovies({
                     year: localyearform.dropyear,
                     genretrue,
-                    page:1
+                    page: 1
                 }))}>Применить
                 </button>
             </div>

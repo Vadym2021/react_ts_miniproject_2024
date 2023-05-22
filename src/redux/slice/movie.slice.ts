@@ -12,7 +12,7 @@ interface IState {
     page: number,
     total_pages: number,
     total_results: number,
-    year: number | null,
+    year: number | undefined,
     id: number,
 }
 
@@ -23,11 +23,11 @@ const initialState: IState = {
     page: 1,
     total_pages: 0,
     total_results: 0,
-    year: null,
+    year: undefined,
     id: 0,
 };
 
-const getMovies = createAsyncThunk<IPage<IMovie>, { year: number | null; genretrue: number[]; page: number }>(
+const getMovies = createAsyncThunk<IPage<IMovie>, { year: number | undefined; genretrue: number[]; page: number }>(
     'movieSlice/getMovies',
     async ({year, genretrue, page}, {rejectWithValue}) => {
         try {

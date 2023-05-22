@@ -21,7 +21,7 @@ const MoviesPage: FC = () => {
 
 
     useEffect(() => {
-        dispatch(movieActions.getMovies({year: null , genretrue: genretrue, page}))
+        dispatch(movieActions.getMovies({year: undefined , genretrue: genretrue, page}))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, page])
 
