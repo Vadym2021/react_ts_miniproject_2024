@@ -13,6 +13,8 @@ export const urls = {
     page: '&page=',
     withgenres: '&with_genres=',
     year: '&primary_release_year=',
-    search: '/search',
-    query: 'movie?query=',
+    search: '/search/movie',
+    query: '&query=',
+    videos:'videos'
 }
+

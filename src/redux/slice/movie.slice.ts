@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AxiosError} from "axios";
 
 import {movieService} from "../../services";
-import {IMovie, IPage} from "../../interfaces";
+import {IMovie, IPage, IVideo, IVideoList} from "../../interfaces";
 import {ISingleMovie} from "../../interfaces/singlemovie.interface";
 
 
@@ -14,6 +14,9 @@ interface IState {
     total_results: number,
     year: number | undefined,
     id: number,
+    searchText: string,
+    movieVideos: IVideo[],
+    searchMethod: string;
 }
 
 
@@ -25,14 +28,21 @@ const initialState: IState = {
     total_results: 0,
     year: undefined,
     id: 0,
+    searchText: '',
+    movieVideos: [],
+    searchMethod: 'getMovies',
 };
 
-const getMovies = createAsyncThunk<IPage<IMovie>, { year: number | undefined; genretrue: number[]; page: number }>(
+const getMovies = createAsyncThunk<{ data: IPage<IMovie>, year: number | undefined }, {
+    year: number | undefined;
+    genretrue: number[];
+    page: number
+}>(
     'movieSlice/getMovies',
     async ({year, genretrue, page}, {rejectWithValue}) => {
         try {
             const {data} = await movieService.getMovies(year, genretrue, page);
-            return data;
+            return {data, year};
         } catch (e) {
             const err = e as AxiosError;
             return rejectWithValue(err.message);
@@ -53,6 +63,32 @@ const getMovieById = createAsyncThunk<ISingleMovie, { id: number }>(
     }
 );
 
+const searchMovies = createAsyncThunk<IPage<IMovie>, { searchText: string, page: number }>(
+    'movieSlice/searchMovies',
+    async ({searchText, page}, {rejectWithValue}) => {
+        try {
+            const {data} = await movieService.getMovieBySearch(searchText, page);
+            return data;
+        } catch (e) {
+            const err = e as AxiosError;
+            return rejectWithValue(err.message);
+        }
+    }
+);
+
+const getMovieVideo = createAsyncThunk<IVideoList, { id: number }>(
+    'movieSlice/getMovieVideo',
+    async ({id}, {rejectWithValue}) => {
+        try {
+            const {data} = await movieService.getMovieVideos(id);
+            return data;
+        } catch (e) {
+            const err = e as AxiosError;
+            return rejectWithValue(err.message);
+        }
+    }
+);
+
 const slice = createSlice({
     name: 'movieSlice',
     initialState,
@@ -62,20 +98,43 @@ const slice = createSlice({
         },
         setId: (state, action: PayloadAction<number>) => {
             state.id = action.payload;
+        },
+        closeSingleMovie: (state) => {
+            state.SingleMovie = null;
+            state.movieVideos = [];
         }
+
     },
     extraReducers: builder =>
         builder
             .addCase(getMovies.fulfilled, (state, action) => {
-                const {page, total_pages, total_results, results} = action.payload
-                state.page = page
-                state.total_pages = total_pages
-                state.total_results = total_results
-                state.movies = results
+                const {page, total_pages, total_results, results} = action.payload.data;
+                const year = action.payload.year;
+                state.page = page;
+                state.total_pages = total_pages;
+                state.total_results = total_results;
+                state.movies = results;
+                state.year = year;
+                state.searchMethod = 'getMovies';
             })
             .addCase(getMovieById.fulfilled, (state, action) => {
                 state.SingleMovie = action.payload;
             })
+            .addCase(searchMovies.fulfilled, (state, action) => {
+                const {page, total_pages, total_results, results, year} = action.payload;
+                state.page = page;
+                state.total_pages = total_pages;
+                state.total_results = total_results;
+                state.movies = results;
+                state.year = year;
+                state.searchMethod = 'searchMovies';
+                state.searchText = action.meta.arg.searchText;
+            })
+            .addCase(getMovieVideo.fulfilled, (state, action) => {
+                state.movieVideos = action.payload.results;
+            })
+
+
 })
 
 
@@ -84,7 +143,9 @@ const {actions, reducer: movieReducer} = slice;
 const movieActions = {
     ...actions,
     getMovies,
-    getMovieById
+    getMovieById,
+    searchMovies,
+    getMovieVideo,
 }
 
 export {

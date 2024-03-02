@@ -7,3 +7,38 @@
     margin-left: 20px;
 
 }
+.button {
+    display: inline-block;
+    padding: 3px 8px;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 1s;
+    width: 110px;
+    text-align: center;
+}
+
+
+.checkedButton {
+    display: inline-block;
+    padding: 3px 8px;
+    background-color: #092c3e;
+    color: #fff;
+    border: 1px solid #388e3c;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 1s;
+    width: 110px;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #092c3e;
+    color:  #f0f0f0;
+}
+
+.hiddenCheckbox {
+    display: none;
+}

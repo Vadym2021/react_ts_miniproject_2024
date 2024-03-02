@@ -9,6 +9,7 @@ import {Rating} from '../stars/Stars';
 
 interface IProps {
     movie: IMovie
+
 }
 
 const Movie: FC<IProps> = ({movie}) => {
@@ -20,7 +21,7 @@ const Movie: FC<IProps> = ({movie}) => {
     return (
         <div className={css.moviegrid}>
             <div className={css.moviewrap}>
-                <Link className={css.movie} to={id.toString()}>
+                <Link className={css.movie} to={id.toString()} >
 
                     <div className={css.img}>
                         {poster_path ? (

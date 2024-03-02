@@ -30,3 +30,20 @@
     display: flex;
     column-gap: 10px;
 }
+
+.buttonNPJump{
+    display: inline-block;
+    padding: 8px 100px;
+    background-color: aliceblue;
+    color: #333;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 1s;
+}
+
+.buttonNPJump:hover {
+    background-color: #092c3e;
+    color:  #f0f0f0;
+
+}

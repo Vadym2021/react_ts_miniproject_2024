@@ -17,8 +17,17 @@ const GenreSelect: FC<IProps> = ({genre}) => {
 
     return (
         <div className={css.genre}>
-            <div>{name}</div>
-            <input type="checkbox" checked={Boolean(genre.status)} onChange={() => dispatch(checkBoxChange({id}))}/>
+            {/*<div>{name}</div>*/}
+            <label className={genre.status ? css.checkedButton : css.button}>
+                {name}
+                <input
+                    type="checkbox"
+                    checked={Boolean(genre.status)}
+                    onChange={() => dispatch(checkBoxChange({id}))}
+                    className={css.hiddenCheckbox}
+                />
+            </label>
+            {/*<input type="checkbox" checked={Boolean(genre.status)} onChange={() => dispatch(checkBoxChange({id}))}/>*/}
         </div>
     );
 };
