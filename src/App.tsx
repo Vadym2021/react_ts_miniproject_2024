@@ -1,14 +1,15 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import { SingleMovie } from './components';
-import {HeaderPage, LayoutPage, MoviesPage} from './page';
+import {Header, SingleMovie} from './components';
+import {LayoutPage, MoviesPage} from './page';
+
 
 
 
 const App = () => {
     return (
         <div>
-            <HeaderPage/>
+            <Header/>
             <Routes>
                 <Route path={'/'} element={<LayoutPage/>}>
                     <Route path={'/'} element={<MoviesPage/>}>

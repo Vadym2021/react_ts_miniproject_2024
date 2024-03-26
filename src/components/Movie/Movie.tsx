@@ -4,24 +4,25 @@ import {Link} from "react-router-dom";
 import {IMovie} from "../../interfaces";
 import {Genre} from '../Genre/Genre';
 import css from "./Movie.module.css"
-import {Rating} from '../stars/Stars';
+import {Rating} from '../Stars/Stars';
+import {useAppSelector} from "../../hooks";
 
 
 interface IProps {
     movie: IMovie
-
 }
 
 const Movie: FC<IProps> = ({movie}) => {
 
     // const [rating, setRating] = React.useState(0);
-    const {title, genre_ids, release_date, id, poster_path,vote_average} = movie;
+    const {title, genre_ids, release_date, id, poster_path, vote_average} = movie;
+    const {theme} = useAppSelector(state => state.genreReducer);
 
 
     return (
-        <div className={css.moviegrid}>
+        <div className={`${css.moviegrid} ${theme === 'night' ? css.night : css.day}`}>
             <div className={css.moviewrap}>
-                <Link className={css.movie} to={id.toString()} >
+                <Link className={`${css.movie} ${theme === 'night' ? css.night : css.day}`} to={id.toString()}>
 
                     <div className={css.img}>
                         {poster_path ? (
@@ -39,8 +40,10 @@ const Movie: FC<IProps> = ({movie}) => {
                             />
                         )}
                     </div>
-                    <div>{title}</div>
-                    <div>{release_date}</div>
+                    <div className={`${css.theme} ${theme === 'night' ? css.night : css.day}`}>
+                        {title}</div>
+                    <div className={`${css.theme} ${theme === 'night' ? css.night : css.day}`}>
+                        {release_date}</div>
 
 
                     <div className={css.genres}>

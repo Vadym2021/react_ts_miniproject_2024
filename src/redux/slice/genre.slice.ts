@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AxiosError} from "axios";
 
 import {genreService} from "../../services";
@@ -10,13 +10,14 @@ interface IState {
     genre: IGenre[],
     checkbox: IGenre[],
     genretrue: number[],
+    theme: 'day' | 'night',
 }
 
 const initialState: IState = {
     genre: [],
     checkbox: [],
     genretrue: [],
-
+    theme: 'day',
 }
 
 const getGenres = createAsyncThunk<IGenres, void>(
@@ -32,6 +33,7 @@ const getGenres = createAsyncThunk<IGenres, void>(
     }
 );
 
+
 const slice = createSlice({
     name: 'genreSlice',
     initialState,
@@ -46,6 +48,7 @@ const slice = createSlice({
                 }
                 return genre;
             });
+
             state.genre = genresWithStatus;
 
 
@@ -53,7 +56,22 @@ const slice = createSlice({
                 .filter((genre) => genre.status === true)
                 .map((genre) => genre.id);
             state.genretrue = genreIdsWithStatusTrue as [];
-        }
+        },
+        clearGenre: (state, action) => {
+            state.genre.forEach(genre => {
+                if (genre.status) {
+                    genre.status = false;
+                }
+            });
+
+            state.genretrue = [];
+
+        },
+
+        themeSelector: (state) => {
+            state.theme = state.theme === 'day' ? 'night' : 'day';
+        },
+
     },
     extraReducers: builder =>
         builder
@@ -82,5 +100,3 @@ export {
     genreReducer,
 }
 
-export const {checkBoxChange} = slice.actions;
-export const genretrue = (state: RootState) => state.genreReducer.genretrue;

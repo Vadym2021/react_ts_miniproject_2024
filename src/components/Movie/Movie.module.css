@@ -5,6 +5,21 @@
 
 }
 
+.theme{
+
+}
+
+.day {
+    /*background-color: red;*/
+}
+
+.night {
+    /*background-color: gray;*/
+    background: #041a25;
+    color: #fff;
+}
+
+
 .moviewrap {
     display: flex;
     flex-direction: column;

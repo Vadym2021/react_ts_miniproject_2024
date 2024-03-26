@@ -8,6 +8,7 @@ interface IProps {
 
 const Genre: FC<IProps> = ({genre}) => {
 
+
     return (
         <div>
             <div className={css.genreid}>

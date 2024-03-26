@@ -33,7 +33,10 @@ const initialState: IState = {
     searchMethod: 'getMovies',
 };
 
-const getMovies = createAsyncThunk<{ data: IPage<IMovie>, year: number | undefined }, {
+const getMovies = createAsyncThunk<{
+    data: IPage<IMovie>,
+    year: number | undefined
+}, {
     year: number | undefined;
     genretrue: number[];
     page: number
@@ -50,7 +53,9 @@ const getMovies = createAsyncThunk<{ data: IPage<IMovie>, year: number | undefin
     }
 );
 
-const getMovieById = createAsyncThunk<ISingleMovie, { id: number }>(
+const getMovieById = createAsyncThunk<ISingleMovie, {
+    id: number
+}>(
     'movieSlice/getMovieById',
     async ({id}, {rejectWithValue}) => {
         try {
@@ -63,11 +68,15 @@ const getMovieById = createAsyncThunk<ISingleMovie, { id: number }>(
     }
 );
 
-const searchMovies = createAsyncThunk<IPage<IMovie>, { searchText: string, page: number }>(
+const searchMovies = createAsyncThunk<IPage<IMovie>, {
+    searchText: string,
+    year: number | undefined,
+    page: number
+}>(
     'movieSlice/searchMovies',
-    async ({searchText, page}, {rejectWithValue}) => {
+    async ({searchText, year, page}, {rejectWithValue}) => {
         try {
-            const {data} = await movieService.getMovieBySearch(searchText, page);
+            const {data} = await movieService.getMovieBySearch(searchText, year, page);
             return data;
         } catch (e) {
             const err = e as AxiosError;
@@ -76,7 +85,9 @@ const searchMovies = createAsyncThunk<IPage<IMovie>, { searchText: string, page:
     }
 );
 
-const getMovieVideo = createAsyncThunk<IVideoList, { id: number }>(
+const getMovieVideo = createAsyncThunk<IVideoList, {
+    id: number
+}>(
     'movieSlice/getMovieVideo',
     async ({id}, {rejectWithValue}) => {
         try {
@@ -98,6 +109,9 @@ const slice = createSlice({
         },
         setId: (state, action: PayloadAction<number>) => {
             state.id = action.payload;
+        },
+        setYear: (state, action: PayloadAction<number|undefined>) => {
+            state.year = action.payload;
         },
         closeSingleMovie: (state) => {
             state.SingleMovie = null;
@@ -146,7 +160,7 @@ const movieActions = {
     getMovieById,
     searchMovies,
     getMovieVideo,
-}
+};
 
 export {
     movieActions,

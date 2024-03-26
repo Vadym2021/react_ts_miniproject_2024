@@ -1,8 +1,17 @@
 .genresbody {
     display: flex;
     flex-direction: column;
-    padding: 2px;
+    padding: 5px;
     row-gap: 10px;
+}
+
+.day {
+    /*background-color: red;*/
+}
+
+.night {
+    background: #041a25;
+    color: #fff;
 }
 
 .genres {
@@ -20,7 +29,11 @@
     justify-content: space-between;
     flex-wrap: wrap;
     width: 90%;
+}
 
+.genreslist.disabled {
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 .dropyear {

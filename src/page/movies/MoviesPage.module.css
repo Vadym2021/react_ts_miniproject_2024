@@ -3,7 +3,23 @@
     justify-content: space-around;
     flex-wrap: wrap;
     row-gap: 20px;
+
 }
+
+.theme {
+
+}
+
+.day {
+    /*background-color: red;*/
+}
+
+.night {
+    /*background-color: gray;*/
+    background: #041a25;
+    color: #fff;
+}
+
 
 .pagenav {
     display: flex;
@@ -31,7 +47,7 @@
     column-gap: 10px;
 }
 
-.buttonNPJump{
+.buttonNPJump {
     display: inline-block;
     padding: 8px 100px;
     background-color: aliceblue;
@@ -44,6 +60,6 @@
 
 .buttonNPJump:hover {
     background-color: #092c3e;
-    color:  #f0f0f0;
+    color: #f0f0f0;
 
 }
